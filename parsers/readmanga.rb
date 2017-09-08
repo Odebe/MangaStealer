@@ -4,11 +4,15 @@ class ReadmangaMe
     puts "I'am ReadmangaMe, hur-dur"
     @link = link
     @host = @link.host
-    @manga = Manga.new(link)
-    page = Nokogiri::HTML(Faraday.get(@link).body)
-    @chaptersLinks = page.css('div.chapters-link').css('a').map {|x| x = x["href"]}
+    page = getTitlePage(link)
 
-    @chaptersLinks.reverse.each do |cl|
+    @manga = Manga.new(@host)
+    @manga.info[:link] = link.path.split('/')[1]
+    @manga.info[:name] = page.css('span.name').text
+    @manga.info[:eng_name] = page.css('span.eng_name').text
+    @manga.info[:anoth_names] = page.css('div.another-names').text
+
+    getChaptersLIst(page).reverse.each do |cl|
       chap = Chapter.new
       cl_s = cl.split("/")
       chap.info[:num] = cl_s[2]
@@ -17,6 +21,7 @@ class ReadmangaMe
       chap.info[:pages] = getPages(cl)
       @manga.info[:chapters] << chap
     end
+    
     @manga
 =begin
     #@manga.info[:chapters]
@@ -38,13 +43,20 @@ class ReadmangaMe
      end
 =end
   end
+  def getTitlePage(link)
+    Nokogiri::HTML(open(link) { |io| io.read })
+  end
+  def getChaptersLIst(page)
+    page.css('div.chapters-link').css('a').map {|x| x = x["href"]}
+  end
   def getManga
     @manga
   end
   def getPages(chapterPath)
     regex = /rm_h.init\( (.*), 0, false\);/
     new_link = URI::HTTP.build(:host => @host, :path => chapterPath, :query => "mtr=1")
-    body = Faraday.get(new_link).body.tr("'", '"')
+    #body = Faraday.get(new_link).body.tr("'", '"')
+    body = open(new_link) { |io| io.read }.tr("'", '"')
     match = regex.match body
     json_res = JSON.parse(match[1]).map {|item| item[1].to_s + item[0].to_s + item[2].to_s}
   end

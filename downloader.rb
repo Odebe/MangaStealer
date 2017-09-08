@@ -8,7 +8,6 @@ class Downloader
         #puts File.basename(page)
         File.write(".#{chapter.info[:link]}/#{File.basename(page)}", open(page).read, {mode: 'wb'})
       end
-      print 'done\n'
     end
   end
   def createDir(path)
