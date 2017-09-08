@@ -1,6 +1,7 @@
-require 'uri'
+#require 'uri'
 require 'nokogiri'
-require 'faraday'
+#require 'faraday'
+require 'open-uri'
 require 'json'
 #require 'fileutils'
 require './parserManager.rb'
@@ -10,12 +11,11 @@ require './downloader.rb'
 
 class MangaStealer
   def initialize
-    link = "http://readmanga.me/sherdoodles"
+    link = "http://selfmanga.ru/videira"
     uri = URI(link)
-    #pm =
-    Downloader.new (ParserManager.new uri).getManga
+    pm = ParserManager.new uri
+    Downloader.new pm.getManga
     #puts pm.getManga.info[:chapters].map {|x| x.info[:link]}
-
   end
 end
 MangaStealer.new
