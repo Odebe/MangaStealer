@@ -1,6 +1,6 @@
 #require 'uri'
 require 'nokogiri'
-#require 'faraday'
+require 'faraday'
 require 'open-uri'
 require 'json'
 require 'yaml'

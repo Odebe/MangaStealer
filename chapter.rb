@@ -5,7 +5,8 @@ class Chapter
       :pages => [],
       :link => "",
       :num => "",
-      :vol => ""
+      :vol => "",
+      :archiveLink => nil
     }
   end
 end

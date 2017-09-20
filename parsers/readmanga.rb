@@ -12,7 +12,9 @@ class ReadmangaMe
     @manga.info[:eng_name] = page.css('span.eng_name').text
     @manga.info[:anoth_names] = page.css('div.another-names').text
 
-    getChaptersLIst(page).reverse.each do |cl|
+    getChaptersList(page).reverse.each do |cl|
+      puts cl
+      sleep 0.3
       chap = Chapter.new
       cl_s = cl.split("/")
       chap.info[:num] = cl_s[2]
@@ -46,7 +48,7 @@ class ReadmangaMe
   def getTitlePage(link)
     Nokogiri::HTML(open(link) { |io| io.read })
   end
-  def getChaptersLIst(page)
+  def getChaptersList(page)
     page.css('div.chapters-link').css('a').map {|x| x = x["href"]}
   end
   def getManga

@@ -4,14 +4,17 @@ class ParserManager
     @parsersList = {
       "readmanga.me" => "readmanga.rb",
       "mintmanga.com" => "readmanga.rb",
-      "selfmanga.ru" => "readmanga.rb"
+      "selfmanga.ru" => "readmanga.rb",
+      "mangachan.me" => "mangachan.rb",
+      "hentai-chan.me" => "mangachan.rb"
     }
     synonyms = {
       "MintmangaCom" => "ReadmangaMe",
       "SelfmangaRu" => "ReadmangaMe",
+      "HentaichanMe" => "MangachanMe"
     }
     addParser(uri.host)
-    parserName = uri.host.split(".").map{|word| word.capitalize!}.join
+    parserName = uri.host.tr('-','').split(".").map{|word| word.capitalize!}.join
     parserName = synonyms[parserName] if synonyms.has_key? parserName
     @parser = Object.const_get(parserName).new uri
   end
