@@ -6,12 +6,14 @@ class ParserManager
       "mintmanga.com" => "readmanga.rb",
       "selfmanga.ru" => "readmanga.rb",
       "mangachan.me" => "mangachan.rb",
-      "hentai-chan.me" => "mangachan.rb"
+      "hentai-chan.me" => "mangachan.rb",
+      "yaoichan.me" => "mangachan.rb"
     }
     synonyms = {
       "MintmangaCom" => "ReadmangaMe",
       "SelfmangaRu" => "ReadmangaMe",
-      "HentaichanMe" => "MangachanMe"
+      "HentaichanMe" => "MangachanMe",
+      "YaoichanMe" => "MangachanMe"
     }
     addParser(uri.host)
     parserName = uri.host.tr('-','').split(".").map{|word| word.capitalize!}.join

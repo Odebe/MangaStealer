@@ -4,7 +4,7 @@ require 'faraday'
 require 'open-uri'
 require 'json'
 require 'yaml'
-#require 'fileutils'
+
 require './parserManager.rb'
 require './manga.rb'
 require './chapter.rb'

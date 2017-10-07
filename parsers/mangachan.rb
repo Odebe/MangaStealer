@@ -13,7 +13,7 @@ class MangachanMe
       puts cl
       sleep 0.3
       chap = Chapter.new
-      if /._v._ch.html/.match cl
+      if /._v._ch./.match cl
         clParsed = cl[/_v(.*?).html/].tr('.html', '').split("_")
         chap.info[:link] = "/#{@manga.info[:name]}/#{clParsed[1]}/#{clParsed[2]}"
       else
@@ -44,7 +44,11 @@ class MangachanMe
   def getPages(chapterPath)
     new_link = URI::HTTP.build(:host => @host, :path => chapterPath)
     body = Nokogiri::HTML(open(new_link) { |io| io.read })
+    if body.text.include? "Доступ ограничен. Только зарегистрированные пользователи подтвердившие, что им 18 лет."
+      raise "Доступ ограничен. Не на этот раз, Приятель."
+    else
     pages =  body.text.split('"fullimg":[')[1].split("]")[0].split(',').map! {|x| x.tr('"','')}
+    end
   end
 end
 
