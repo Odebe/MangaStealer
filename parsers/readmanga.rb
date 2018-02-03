@@ -1,5 +1,7 @@
 
-class ReadmangaMe 
+class ReadmangaMe
+  attr_reader :manga
+
   def initialize(link)
     puts "I'am ReadmangaMe, hur-dur"
     @link = link
@@ -14,7 +16,7 @@ class ReadmangaMe
 
     getChaptersList(page).reverse.each do |cl|
       puts cl
-      sleep 0.3
+      sleep 1
       chap = Chapter.new
       cl_s = cl.split("/")
       chap.info[:num] = cl_s[2]

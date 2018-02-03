@@ -7,7 +7,8 @@ class ParserManager
       "selfmanga.ru" => "readmanga.rb",
       "mangachan.me" => "mangachan.rb",
       "hentai-chan.me" => "mangachan.rb",
-      "yaoichan.me" => "mangachan.rb"
+      "yaoichan.me" => "mangachan.rb",
+      "mangakakalot.com" => "mangakakalot.rb"
     }
     synonyms = {
       "MintmangaCom" => "ReadmangaMe",
@@ -21,7 +22,7 @@ class ParserManager
     @parser = Object.const_get(parserName).new uri
   end
   def getManga
-    @parser.getManga
+    @parser.manga
   end
   def addParser(parser)
     if @parsersList.has_key? parser
