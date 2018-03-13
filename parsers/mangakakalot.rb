@@ -1,28 +1,21 @@
 class MangakakalotCom < ParserBase
-
-	def initialize(link)
-		super 
-
-    getMangaName do |page|
-    	page.css('ul.manga-info-text li')[0].css('h1').text
+  def initialize(link)
+    super 
+    get_manga_name  do |page|
+      page.css('ul.manga-info-text li')[0].css('h1').text
     end
-
-    getChaptersLinkList do |page| 
-    	page.css('div.chapter-list a').reverse
+    get_chapters_link_list do |page| 
+      page.css('div.chapter-list a').reverse
     end
-
-    setChaptersList do |link, chapter|
+    set_chapters_list do |link, chapter|
       chapter[:num] = link.split("/").last.split('_').last
       chapter[:vol] = "vol"
-      puts link
     end
-
-    getPages do |chapter|
-    	chapter.css('div#vungdoc img').map{|p| p[:src]}
+    get_pages do |chapter|
+      chapter.css('div#vungdoc img').map{|p| p[:src]}
     end
-	end
-
-		def self.getManga
-		@manga
-	end
+  end
+    def self.getManga
+    @manga
+  end
 end

@@ -1,4 +1,3 @@
-
 class ReadmangaMe
   attr_reader :manga
 
