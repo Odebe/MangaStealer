@@ -1,4 +1,4 @@
-manga: http://mangakakalot.com/manga/isekai_yakkyoku
+manga: link
 range:
-  from: 6
-  to: 9
+  from: chapter_num
+  to: chapter_num
