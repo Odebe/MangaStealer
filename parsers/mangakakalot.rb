@@ -1,5 +1,5 @@
-class MangakakalotCom < ParserBase
-  def initialize(link)
+class Mangakakalot < BaseParser
+  def initialize(link, range)
     super 
     get_manga_name  do |page|
       page.css('ul.manga-info-text li')[0].css('h1').text
@@ -9,7 +9,7 @@ class MangakakalotCom < ParserBase
     end
     set_chapters_list do |link, chapter|
       chapter[:num] = link.split("/").last.split('_').last
-      chapter[:vol] = "vol"
+      chapter[:vol] = ""
     end
     get_pages do |chapter|
       chapter.css('div#vungdoc img').map{|p| p[:src]}

@@ -2,6 +2,7 @@ class Downloader
   def initialize(manga)
     puts "I've got manga! #{manga.info[:name]}\n\n"
     manga.info[:chapters].each do|chapter|
+      next if chapter.info[:pages].empty?
       puts chapter.info[:link]
       if chapter.info[:archiveLink].nil?
         path = "./downloads/#{manga.info[:name]}/#{chapter.info[:vol]}/#{chapter.info[:num]}"

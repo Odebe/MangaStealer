@@ -10,7 +10,7 @@ class Manga
       :host => host
     }
   end
-  def printInfo
+  def to_s
     print "name=#{@info[:name]} host=#{@info[:host]}, pages=#{@info[:chapters].count}\n"
     print "#{info[:chapters].map {|chap| chap.info[:link]}}"
   end

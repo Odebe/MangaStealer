@@ -1,8 +1,9 @@
-class ParserBase
+class BaseParser
   attr_reader :manga
 
-  def initialize(link)
+  def initialize(link, range)
     puts "I'am #{self.class}, hur-dur"
+    @range = range
     @link = link
     @host = link.host
     @tittlePage = get_tittle_page(link)
@@ -35,6 +36,8 @@ class ParserBase
   end
   def get_pages
     @manga.info[:chapters].each do |chapter|
+      num = chapter.info[:num].to_i
+      next if num < @range["from"].to_i || num > @range["to"].to_i
       new_link = URI::HTTP.build(:host => @host, :path => chapter.info[:link])
       page = Nokogiri::HTML(open(new_link) { |io| io.read })
       chapter.info[:pages] = yield(page)
@@ -47,5 +50,8 @@ class ParserBase
     if page.text.include? "Доступ ограничен"
       raise "Не на этот раз приятель!"
     end 
+  end
+  private def is_chapter_in_range
+    
   end
 end

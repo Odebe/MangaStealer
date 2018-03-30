@@ -1,4 +1,4 @@
-class MangagoMe  < ParserBase
+class MangagoMe  < BaseParser
   def initialize(link)
     super 
     get_manga_name do |page|

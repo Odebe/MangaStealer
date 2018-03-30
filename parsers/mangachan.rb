@@ -1,4 +1,4 @@
-class MangachanMe  < ParserBase
+class Mangachan  < BaseParser
   def initialize(link)
     super 
     get_manga_name do |page|
@@ -19,12 +19,12 @@ class MangachanMe  < ParserBase
         chapter[:vol] = link_parts[1]
       else
         chapter[:num] = ""
-        chapter[:vol] =""
+        chapter[:vol] = ""
       end
     end
     get_pages do |chapter|
-      chapter.text.split('"fullimg":[')[1].split("]")[0].split(',').map! {|x| x.tr('"','')}
-      #chapter.css('div#content script').find{|s| s.text.include? '"fullimg":['}
+      #chapter.text.split('"fullimg":[')[1].split("]")[0].split(',').map! {|x| x.tr('"','')}
+      chapter.css('div#content script')[2].text.gsub('"','')[/.*fullimg:\[([^]]*)/,1].split(",")
     end
   end
 end
