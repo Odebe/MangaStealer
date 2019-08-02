@@ -2,5 +2,6 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem 'nokogiri'
-gem 'json'
+# gem 'nokogiri'
+# gem 'json'
+gem 'dry-system'

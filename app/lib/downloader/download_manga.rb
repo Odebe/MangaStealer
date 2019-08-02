@@ -30,3 +30,4 @@ module Downloader
     end
   end
 end
+

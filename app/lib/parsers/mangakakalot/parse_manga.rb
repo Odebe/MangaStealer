@@ -1,6 +1,6 @@
 module Parsers
   module  Mangakakalot
-    class FetchManga
+    class ParseManga
       def initialize(link, params)
         @link = link
         @params = params
@@ -24,7 +24,7 @@ module Parsers
         end
 
         full_chapters = chapters_links.each_with_object([]) do |c, acc|
-          result = Parsers::Mangakakalot::FetchChapterPagesList.new(c[:link])).call
+          result = Parsers::Mangakakalot::FetchChapterPagesList.new(c[:link]).call
           acc << { chapter: c, pages: result.value! } if result.success?
         end
 

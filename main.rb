@@ -1,32 +1,22 @@
-#require 'uri'
-require 'nokogiri'
-require 'open-uri'
-require 'json'
-require 'yaml'
-require 'uri'
+# require 'dotenv/load'
 
-class MangaStealer
-  def initialize
-    load_objects_files
-    load_config_files
+# require './system/application.rb'
+require_relative './system/boot.rb'
 
-    link = @config["manga"]
-    uri = URI(link)
-    pm = ParserManager.new(uri, @config["range"])
-    Downloader.new(pm.manga)
-  end
-  def load_config_files
-    config_path = File.dirname(__FILE__) + "/config/config.yml"
-    if File.exists? config_path
-      @config = YAML.load_file(config_path)
-    else
-      raise "Can't find config file!"
-    end
-    Dir[__dir__+"/config/*.rb"].each{ |file| require file }
-  end
-  def load_objects_files
-    Dir[__dir__+"/objects/*.rb"].each{ |file| require file }
-  end
-end
+# require 'nokogiri'
 
-MangaStealer.new
+MangaStealer::Application.finalize!
+
+
+MangaStealer::Application['logger'].info(123123)
+
+puts ENV['LOAD_PATH']
+
+Import = MangaStealer::Application.injector
+
+puts Parsers::Config.config.list.inspect 
+# MangaStealer::Application['manga_stealer.parser_manager']
+#MangaStealer::ParserManager
+# MangaStealer::Application['logger'].info(parsers_settings.list)
+
+# include Import["logger"]
