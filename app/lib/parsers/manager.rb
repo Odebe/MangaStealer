@@ -6,17 +6,17 @@ module Parsers
 
     setting :readmanga do
       setting :sites, %w[readmanga.me mintmanga.com selfmanga.ru]
-      setting :endpoint, ->{ Parsers::ReadManga }
+      setting :endpoint, 'parsers.readmanga.endpoint'
     end
 
     setting :mangachan do
       setting :sites, %w[mangachan.me hentai-chan.me yaoichan.me]
-      setting :endpoint, ->{ Parsers::MangaChan }
+      setting :endpoint, 'parsers.mangachan.endpoint'
     end
 
     setting :mangakakalot do
       setting :sites, %w[mangakakalot.com]
-      setting :endpoint, ->{ Parsers::Mangakakalot }
+      setting :endpoint, 'parsers.mangakakalot.endpoint'
     end
   end
 end

@@ -10,8 +10,8 @@ module Tools
     def call(link)
       hostname = yield get_hostname(link)
       parser_name = yield find_parser_name(hostname)
-      parser_endpoint_proc = yield find_endpoint_proc(parser_name)
-      parser_endpoint_class = yield find_endpoint_class(parser_endpoint_proc)
+      parser_endpoint_dry_import_path = yield find_endpoint_path(parser_name)
+      parser_endpoint_class = yield find_endpoint_class(parser_endpoint_dry_import_path)
 
       return Failure('can_not_find_endpoint') if parser_endpoint_class.nil?
 
@@ -28,14 +28,16 @@ module Tools
       Success(hostname)
     end
 
-    def find_endpoint_class(endpoint_proc)
-      endpoint_class = endpoint_proc.call
-      Failure('endpoint_class_not_defined') if endpoint_class.nil?
+    def find_endpoint_class(endpoint_dry_path)
+      endpoint = Application::Container[endpoint_dry_path]
+      Failure('endpoint_not_defined') if endpoint.nil?
 
-      Success(endpoint_class)
+      Success(endpoint)
+    rescue => e
+      Failure(e.message)
     end
 
-    def find_endpoint_proc(parser_name)
+    def find_endpoint_path(parser_name)
       return Failure('endpoint_proc_not_defined') unless config_class.respond_to?(parser_name)
 
       Success(config_class.send(parser_name).endpoint)
