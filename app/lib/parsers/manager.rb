@@ -1,5 +1,5 @@
 module Parsers
-  class Config
+  class Manager
     extend Dry::Configurable
 
     setting :list, %w[readmanga mangachan mangakakalot]
@@ -18,5 +18,6 @@ module Parsers
       setting :sites, %w[mangakakalot.com]
       setting :endpoint, ->{ Parsers::Mangakakalot }
     end
-  end  
+  end
 end
+

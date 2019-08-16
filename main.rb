@@ -1,22 +1,15 @@
-# require 'dotenv/load'
 
-# require './system/application.rb'
+require 'dry/monads'
+require 'dry/monads/do'
+
 require_relative './system/boot.rb'
-
-# require 'nokogiri'
-
-MangaStealer::Application.finalize!
+require_relative './config.rb'
 
 
-MangaStealer::Application['logger'].info(123123)
-
-puts ENV['LOAD_PATH']
-
-Import = MangaStealer::Application.injector
-
-puts Parsers::Config.config.list.inspect 
-# MangaStealer::Application['manga_stealer.parser_manager']
-#MangaStealer::ParserManager
-# MangaStealer::Application['logger'].info(parsers_settings.list)
-
-# include Import["logger"]
+result = Endpoint.new.call(Config)
+if result.success?
+  Application::Container['logger'].info(result.value!.inspect)
+else
+  Application::Container['logger'].error(result.failure)
+  Application::Container['logger'].error(result.trace)
+end
