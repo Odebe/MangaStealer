@@ -6,7 +6,8 @@ class Endpoint
 
   def call(config_class)
     endpoint = yield find_parser_endpoint.call(config_class.config.link)
+    manga = yield endpoint.call(config_class.config)
     
-    Success(endpoint)
+    Success(manga)
   end
 end

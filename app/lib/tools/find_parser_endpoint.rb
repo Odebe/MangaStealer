@@ -1,13 +1,14 @@
-require 'uri'
 
 module Tools
   class FindParserEndpoint
     include Dry::Monads[:result]
     include Dry::Monads::Do.for(:call)
 
-    include ::Import['parsers.manager']
+    include ::Import['parsers.manager', 'tools.validate_uri']
 
     def call(link)
+      _result = yield validate_uri.call(link)
+
       hostname = yield get_hostname(link)
       parser_name = yield find_parser_name(hostname)
       parser_endpoint_dry_import_path = yield find_endpoint_path(parser_name)
