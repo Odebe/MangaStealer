@@ -55,6 +55,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dry-inflector
   dry-monads
   dry-system
   faraday

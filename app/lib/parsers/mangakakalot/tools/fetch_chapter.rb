@@ -14,9 +14,17 @@ module Parsers
           chapter_page = yield fetch_page.call(chapter_link.link)
           nokogiri_page = yield parse_page.call(chapter_page)
           pages = yield fetch_pages(nokogiri_page)
+          chapter = yield compose_chapter(chapter_link.link, pages)
+
+          Success(chapter)
         end
 
         private
+
+        def compose_chapter(link, pages)
+          chapter_entitry = Parsers::Mangakakalot::Entities::Chapter.new(link: link, pages: pages)
+          Success(chapter_entitry)
+        end
 
         def fetch_pages(nokogiri_page)
           images = nokogiri_page.css('div#vungdoc img')

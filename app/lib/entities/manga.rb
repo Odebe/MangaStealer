@@ -1,9 +1,10 @@
 module Entities
   class Manga
-    attr_reader :info
+    attr_reader :info, :chapters
     
-    def initialize(info)
+    def initialize(info:, chapters:)
       @info = info
+      @chapters = chapters
     end
   end
 end

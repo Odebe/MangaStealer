@@ -10,6 +10,7 @@ module Parsers
           @link[:href]
         end
 
+
         def number
           @_number ||= @link.text.scan(/Chapter (.+)/).flatten.first.to_i
         end

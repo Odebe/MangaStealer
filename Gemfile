@@ -5,5 +5,6 @@ gem 'nokogiri'
 
 gem 'dry-monads'
 gem 'dry-system'
+gem "dry-inflector"
 
 gem 'faraday'

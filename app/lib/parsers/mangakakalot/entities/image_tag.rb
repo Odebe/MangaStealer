@@ -1,7 +1,7 @@
 module Parsers
   module Mangakakalot
     module Entities
-      class ImageTag
+      class ImageTag < ::Entities::Page
         def initialize(nokogiri_obj)
           @nokogiri_obj = nokogiri_obj 
         end
