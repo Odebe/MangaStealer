@@ -11,6 +11,7 @@ module Parsers
                         'parsers.mangakakalot.tools.fetch_general_info',
                         'parsers.mangakakalot.tools.fetch_chapters',
                         'parsers.mangakakalot.tools.compose_manga_entity',
+                        'logger'
                         ]
 
         def call(config)
@@ -18,6 +19,7 @@ module Parsers
           nokogiri_page = yield parse_page.call(page)
           info = yield fetch_general_info.call(nokogiri_page)
           chapters = yield fetch_chapters.call(nokogiri_page, config: config)
+          logger.info(chapters.map(&:class))
           manga = yield compose_manga_entity.call(info: info, chapters: chapters)
           
           Success(manga)

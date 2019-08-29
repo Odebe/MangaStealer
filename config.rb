@@ -1,6 +1,7 @@
 class Config
   extend Dry::Configurable
 
+  setting :download_to, Pathname('./downloaded')
   setting :link, 'https://mangakakalot.com/manga/volcanic_age'
   setting :from, '1'
   setting :til, '1'
