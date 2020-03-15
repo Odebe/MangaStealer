@@ -2,7 +2,7 @@ module Parsers
   class Manager
     extend Dry::Configurable
 
-    setting :list, %w[readmanga mangachan mangakakalot]
+    setting :list, %w[readmanga mangachan mangakakalot mangahasu]
 
     setting :readmanga do
       setting :sites, %w[readmanga.me mintmanga.com selfmanga.ru]
@@ -18,6 +18,10 @@ module Parsers
       setting :sites, %w[mangakakalot.com]
       setting :endpoint, 'parsers.mangakakalot.endpoint'
     end
+
+    setting :mangahasu do
+      setting :sites, %w[mangahasu.se]
+      setting :endpoint, 'parsers.mangahasu.endpoint'
+    end
   end
 end
-
