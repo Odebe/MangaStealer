@@ -55,6 +55,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dry-configurable
   dry-inflector
   dry-monads
   dry-system
@@ -62,4 +63,4 @@ DEPENDENCIES
   nokogiri
 
 BUNDLED WITH
-   2.1.0.pre.1
+   2.1.2
